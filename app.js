@@ -7,6 +7,16 @@ const totalExpensesOutput = document.querySelector('#total-expenses');
 
 let totalExpenses = 0;
 
+function presentAlert() {
+    const alert = document.createElement('ion-alert');
+    alert.header = 'Invalid Input';
+    alert.message = 'Please enter a valid Expense Reason & Expense Amount.';
+    alert.buttons = ['OK'];
+  
+    document.body.appendChild(alert);
+    return alert.present();
+  }
+
 const clear = () => {
     reasonInput.value = '';
     amountInput.value = '';
@@ -17,6 +27,7 @@ confirmBtn.addEventListener('click', () => {
     const enteredAmount = amountInput.value;
 
     if (enteredReason.trim().length <= 0 || enteredAmount <= 0 || enteredAmount.trim().length <=0) {
+        presentAlert();
         return;
     }
     const newItem = document.createElement('ion-item');
@@ -24,7 +35,7 @@ confirmBtn.addEventListener('click', () => {
 
     expensesList.appendChild(newItem);
 
-    totalExpenses += +enteredAmount;
+    totalExpenses += +enteredAmount; //second plus symbol converts string to number - ie enteredAmount now num.
     totalExpensesOutput.textContent = totalExpenses;
 
 
